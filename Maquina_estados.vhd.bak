@@ -1,0 +1,30 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY Maquina_estados IS 
+PORT(
+		Clock, X: IN STD_LOGIC; 	
+		Saida: OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
+);
+END Maquina_estados;
+
+ARCHITECTURE behavior OF Maquina_estados IS
+
+	TYPE ROM_ARRAY IS ARRAY (NATURAL RANGE <>) OF STD_LOGIC_VECTOR (15 DOWNTO 0);
+	CONSTANT ROM: ROM_ARRAY := (
+		instruc0, instruc1, instruc2, instruc3,
+		instruc4, instruc5, instruc6, instruc7,
+		instruc8, instruc9, instruc10, instruc11,
+		instruc12, instruc13, instruc14,instruc15
+	);
+
+	BEGIN 
+		PROCESS(PC_address)
+		VARIABLE j: integer;
+		BEGIN
+			j := conv_integer(PC_address);
+			INSTRUCTION <= ROM(j);
+		END PROCESS;
+		
+END behavior;	

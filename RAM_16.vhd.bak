@@ -1,0 +1,39 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.Numeric_Std.all;
+
+entity RAM_16 is
+  port (
+    clock : in  std_logic;
+    write_memory : in  std_logic;
+    address : in  std_logic_vector(3 downto 0);
+    A : in  std_logic_vector(15 downto 0);
+    Saida : out std_logic_vector(15 downto 0)
+  );
+end entity RAM_16;
+
+architecture behavior of RAM_16 is
+
+   --type RAM is array (0 to (2**address'length)-1) of std_logic_vector(A'range);
+	type RAM is array (0 to 15) of std_logic_vector(15 downto 0);
+   signal ram : ram_array;
+   signal read_address : std_logic_vector(3 downto 0);
+
+begin
+
+	process(clock, write_memory, address, A) is
+	begin
+		if rising_edge(clock) then
+			if (write_memory = '1') 
+			then
+				ram(to_integer(unsigned(address))) <= A;
+			end if;
+			
+			-- read_address <= address;
+			
+		end if;
+	end process ;
+
+	Saida <= ram(to_integer(unsigned(address)));
+
+end architecture behavior;

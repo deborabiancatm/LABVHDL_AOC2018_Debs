@@ -1,0 +1,20 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity LeftShift_2_16 is
+    Port (
+			input : STD_LOGIC_VECTOR (15 downto 0);
+			output : out STD_LOGIC_VECTOR (15 downto 0));
+end LeftShift_2_16;
+
+architecture behavior of LeftShift_2_16 is
+begin
+	process(input) is
+		begin
+			input   <= shift_left(input, 2);
+	end process;
+	
+	output(1) <= '0';
+	output(0) <= '0';
+	
+end behavior;
